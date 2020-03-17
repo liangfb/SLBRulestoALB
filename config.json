@@ -1,0 +1,28 @@
+{
+    "Alicloud":
+    {
+        "AccessKey": "",
+        "SecretKey": "",
+        "Endpoint": "cn-zhangjiakou"
+    },
+    "AWS":
+    {
+        "AccessKey": "",
+        "SecretKey": "",
+        "Region": "cn-northwest-1"
+    },
+    "MappingConfigs": 
+    [
+        {
+            "SLBId": "lb-8vb5s2ewzsjw13ixytxs6",
+            "TargetGroupArn": "arn:aws-cn:elasticloadbalancing:cn-northwest-1:086647564671:targetgroup/ecs-AppFar-webservices/d86a0cca35734d2b",
+            "Targets": 
+            [
+                {
+                    "SLBListenerPort": "80",
+                    "ALBListenerArn": "arn:aws-cn:elasticloadbalancing:cn-northwest-1:086647564671:listener/app/ecslb1/5b966df1ea91d84e/0396fa935daa0793"
+                }
+            ]
+        }
+    ]
+}
