@@ -1,0 +1,13 @@
+{
+  "name": "slb2alb",
+  "version": "1.0.0",
+  "description": "Replicate the rules of SLB to AWS ALB",
+  "main": "slb.js",
+  "author": "Liang Fengbiao",
+  "license": "ISC",
+  "dependencies": {
+    "@alicloud/pop-core": "^1.7.9",
+    "aws-sdk": "^2.640.0"
+  }
+
+}
