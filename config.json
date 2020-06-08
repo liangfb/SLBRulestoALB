@@ -9,20 +9,16 @@
     {
         "AccessKey": "",
         "SecretKey": "",
-        "Region": "cn-northwest-1"
+        "Region": "cn-northwest-1",
+        "VPCId": "vpc-fc15be95",
+        "Subnet":
+        [
+            "subnet-01352de7657bb8027",
+            "subnet-3c2d8355"
+        ]
     },
-    "MappingConfigs": 
+    "SLB":
     [
-        {
-            "SLBId": "lb-8vb5s2ewzsjw13ixytxs6",
-            "TargetGroupArn": "arn:aws-cn:elasticloadbalancing:cn-northwest-1:086647564671:targetgroup/ecs-AppFar-webservices/d86a0cca35734d2b",
-            "Targets": 
-            [
-                {
-                    "SLBListenerPort": "80",
-                    "ALBListenerArn": "arn:aws-cn:elasticloadbalancing:cn-northwest-1:086647564671:listener/app/ecslb1/5b966df1ea91d84e/0396fa935daa0793"
-                }
-            ]
-        }
+        "lb-sdfgasdfadf"
     ]
 }
