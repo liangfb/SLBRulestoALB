@@ -36,31 +36,50 @@ npm install
 
 - 编辑config.json文件
 
-- 修改Alicloud和AWS的AccessKey和SecretKey
+- 配置Alicloud和AWS的AccessKey和SecretKey
 
-- 修改Alicloud和AWS的Endpoint和区域信息
+- 配置Alicloud和AWS的Endpoint和区域信息
 
-- 编辑映射关系：
+- 配置需要创建AWS Application Load Balancer的VPC和在不同可用区的最少两个公有子网
 
-  - SLBId: 阿里云上的SLB负载均衡Id
+- 配置需要迁移的阿里云SLB：
 
-  - TargetGroupArn: 在AWS上对应的Target Group ARN
+  - 填写阿里云上的SLB负载均衡Id
 
-  - Targets: 阿里云SLB下的侦听端口和对应AWS ALB的Listener ARN
-
-  - 示例：
-
-    ![](pics/1.png)
-
-    注：映射关系和Targets均可配置多条 
+- 配置文件示例：
+```
+{
+    "Alicloud":
+    {
+        "AccessKey": "LTasdfAI4G9XasdhD",
+        "SecretKey": "w23fdsggzH6fasdftua9RCVnY",
+        "Endpoint": "cn-zhangjiakou"
+    },
+    "AWS":
+    {
+        "AccessKey": "dfgEZYRPRI5JEVA",
+        "SecretKey": "tpsdfgBYaoc6sdfgSUzAMmA3yz",
+        "Region": "cn-northwest-1",
+        "VPCId": "vpc-fcasdf",
+        "Subnet":
+        [
+            "subnet-075645347",ß
+            "subnet-3c2gfhdgdfh"
+        ]
+    },
+    "SLB":
+    [
+        "lb-5345wugyhjfghjfhgj"
+    ]
+}
+```
 
 3. 运行
 
    ```
    node slb.js
    ```
-
-   该命令会输出已创建的规则信息：
+   输出已创建的ALB, Listener, Target Group, Rules信息：
 
    ![](pics/2.png)
 
