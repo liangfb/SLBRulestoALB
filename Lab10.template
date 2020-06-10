@@ -1,0 +1,172 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "cde23dd8-e8d3-452c-843e-0952abef4a7e": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 880,
+                    "y": -270
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "164f7af4-539d-460f-8cf1-4a149c407005": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 1009.5089664210744,
+                    "y": -265.613214202434
+                },
+                "z": 0,
+                "embeds": [],
+                "isassociatedwith": [
+                    "ff4ed8b3-a598-41f7-a38b-46ad3954c476"
+                ]
+            },
+            "ff4ed8b3-a598-41f7-a38b-46ad3954c476": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 1000.11697147114,
+                    "y": -360.38698142449994
+                },
+                "z": 0,
+                "embeds": []
+            }
+        }
+    },
+    "Resources": {
+        "MSKStack": {
+            "Type": "AWS::MSK::Cluster",
+            "Properties": {
+                "BrokerNodeGroupInfo": {
+                    "ClientSubnets": [
+                        {
+                            "Ref": "MSKSubnet1"
+                        },
+                        {
+                            "Ref": "MSKSubnet2"
+                        }
+                    ],
+                    "InstanceType": "kafka.t3.small",
+                    "StorageInfo": {
+                        "EBSStorageInfo": {
+                            "VolumeSize": 1
+                        }
+                    }
+                },
+                "ClusterName": "MSKStack",
+                "EncryptionInfo": {
+                    "EncryptionInTransit": {
+                        "ClientBroker": "TLS_PLAINTEXT",
+                        "InCluster": false
+                    }
+                },
+                "KafkaVersion": "2.2.1",
+                "NumberOfBrokerNodes": 2
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "cde23dd8-e8d3-452c-843e-0952abef4a7e"
+                }
+            }
+        },
+        "SecurityGroupStack": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "sg_ali_migration_workbench",
+                "GroupName": "sg_ali_migration_workbench",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "3389",
+                        "ToPort": "3389",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "VpcId": {
+                    "Ref": "EC2VPC"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "ff4ed8b3-a598-41f7-a38b-46ad3954c476"
+                }
+            }
+        },
+        "EC2Stack": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": "ami-0f4a80fec103b9e67",
+                "InstanceType": "t3.large",
+                "KeyName": {
+                    "Ref": "EC2KeyPair"
+                },
+                "SecurityGroupIds": [
+                    {
+                        "Fn::GetAtt": [
+                            "SecurityGroupStack",
+                            "GroupId"
+                        ]
+                    }
+                ],
+                "SubnetId": {
+                    "Ref": "EC2Subnet"
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "164f7af4-539d-460f-8cf1-4a149c407005"
+                }
+            }
+        }
+    },
+    "Parameters": {
+        "MSKSubnet1": {
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "MSKSubnet2": {
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "EC2VPC": {
+            "Type": "AWS::EC2::VPC::Id"
+        },
+        "EC2Subnet": {
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "EC2KeyPair": {
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        }
+    },
+    "Outputs": {
+        "MSKARN": {
+            "Value": {
+                "Ref": "MSKStack"
+            }
+        },
+        "EC2PublicIp": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "EC2Stack",
+                    "PublicIp"
+                ]
+            }
+        },
+        "EC2PrivateIp": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "EC2Stack",
+                    "PrivateIp"
+                ]
+            }
+        }
+    }
+}
