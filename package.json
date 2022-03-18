@@ -6,7 +6,7 @@
   "author": "Liang Fengbiao",
   "license": "ISC",
   "dependencies": {
-    "@alicloud/pop-core": "^1.7.9",
-    "aws-sdk": "^2.640.0"
+    "@alicloud/pop-core": "^1.7.10",
+    "aws-sdk": "^2.1095.0"
   }
 }
